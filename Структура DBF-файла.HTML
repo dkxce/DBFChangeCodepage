@@ -1,0 +1,1246 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<meta http-equiv="Content-Language" content="ru">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Структура DBF-файла</title>
+</head>
+
+<body>
+
+<h2 align="center">Структура DBF-файла</h2>
+
+<p><a name="Table_1">Табл. 1. Структура файла DBF.</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <th align="right" bgcolor="#C0C0C0">Длина</th>
+    <th align="left" bgcolor="#C0C0C0">Назначение</th>
+  </tr>
+  <tr>
+    <td align="right">32</td>
+    <td align="left">Заголовок файла DBF. См. <a href="#Table_2"> табл
+      2</a>.</td>
+  </tr>
+  <tr>
+    <td align="right">n*m</td>
+    <td align="left"> Дескрипторы полей в количестве n.
+      Для dBASE 7 m=48 (см. <a href="#Table_6">табл 6</a>), для предшествующих 
+	версий структуры заголовка m=32 (см. <a href="#Table_5">табл 5</a>).</td>
+  </tr>
+  <tr>
+    <td align="right">1</td>
+    <td align="left"> Терминальный байт CHR(13).</td>
+  </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td align="left"> Только в dBASE 7. Необязательные
+      свойства полей. См. <a href="http://www.autopark.ru/ASBProgrammerGuide/dbf7stru.htm">"Data File Header Structure for the dBASE Version 7 Table File"</a>.</td>
+  </tr>
+  <tr>
+    <td align="right">m*k</td>
+    <td align="left"> Записи с данными (длиной k и количеством m).
+      См. <a href="#Table_8">табл 8</a>.</td>
+  </tr>
+</tbody></table>
+<p><br>
+<a name="Table_2">Табл. 2. Заголовок файла DBF.</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <th colspan="2" bgcolor="#C0C0C0">Адрес</th>
+    <th align="right" bgcolor="#C0C0C0">Длина</th>
+    <th align="left" bgcolor="#C0C0C0">Назначение</th>
+  </tr>
+  <tr>
+    <td align="right">0</td>
+    <td align="right">0x00</td>
+    <td align="right">1</td>
+    <td align="left"> Сигнатура. См. <a href="#Table_3">табл
+      3</a> и <a href="#Table_4">табл 4</a>.</td>
+  </tr>
+  <tr>
+    <td align="right">1</td>
+    <td align="right">0x01</td>
+    <td align="right">3</td>
+    <td align="left"> Дата последней модификации в виде ГГММДД</td>
+  </tr>
+  <tr>
+    <td align="right">4</td>
+    <td align="right">0x04</td>
+    <td align="right">4</td>
+    <td align="left"> Число записей в базе</td>
+  </tr>
+  <tr>
+    <td align="right">8</td>
+    <td align="right">0x08</td>
+    <td align="right">2</td>
+    <td align="left"> Полная длина заголовка (с дескрипторами
+      полей)</td>
+  </tr>
+  <tr>
+    <td align="right">10</td>
+    <td align="right">0x0A</td>
+    <td align="right">2</td>
+    <td align="left">Длина одной записи</td>
+  </tr>
+  <tr>
+    <td align="right">12</td>
+    <td align="right">0x0C</td>
+    <td align="right">2</td>
+    <td align="left"> Зарезервировано (всегда 0)</td>
+  </tr>
+  <tr>
+    <td align="right">14</td>
+    <td align="right">0x0E</td>
+    <td align="right">1</td>
+    <td align="left"> Флаг, указывающий на наличие
+      незавершенной транзакции dBASE IV</td>
+  </tr>
+  <tr>
+    <td align="right">15</td>
+    <td align="right">0x0F</td>
+    <td align="right">1</td>
+    <td align="left"> Флаг шифрования таблицы dBASE IV</td>
+  </tr>
+  <tr>
+    <td align="right">16</td>
+    <td align="right">0x10</td>
+    <td align="right">12</td>
+    <td align="left"> Зарезервированная область для многопользовательского использования</td>
+  </tr>
+  <tr>
+    <td align="right">28</td>
+    <td align="right">0x1C</td>
+    <td align="right">1</td>
+    <td align="left"> Флаг наличия индексного MDX-файла</td>
+  </tr>
+  <tr>
+    <td align="right">29</td>
+    <td align="right">0x1D</td>
+    <td align="right">1</td>
+    <td align="left"> Идентификатор кодовой страницы
+      файла (dBASE IV, Visual FoxPro, XBase). См. 
+	<a href="#Table_9">табл 9</a>.</td>
+  </tr>
+  <tr>
+    <td align="right">30</td>
+    <td align="right">0x1E</td>
+    <td align="right">2</td>
+    <td align="left"> Зарезервировано (всегда 0)</td>
+  </tr>
+  <tr>
+    <td align="right">32</td>
+    <td align="right">0x20</td>
+    <td align="right">32</td>
+    <td align="left"> Только в dBASE 7. Идентификатор
+      языкового драйвера. См. <a href="#Table_10">табл 10</a>.</td>
+  </tr>
+  <tr>
+    <td align="right">64</td>
+    <td align="right">0x40</td>
+    <td align="right">4</td>
+    <td align="left"> Только в dBASE 7. Зарезервировано</td>
+  </tr>
+</tbody></table>
+<p><br>
+<a name="Table_3">Табл. 3. Сигнатура.</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <th align="right" bgcolor="#C0C0C0">Биты</th>
+    <th align="left" bgcolor="#C0C0C0">Описание</th>
+  </tr>
+  <tr>
+    <td align="right">0-2</td>
+    <td align="left"> Номер версии: 3 для
+	dBASE III, dBASE IV, dBASE V, 4 для
+	dBASE 7. Прочие СУБД это правило соблюдают не 
+	всегда</td>
+  </tr>
+  <tr>
+    <td align="right">3</td>
+    <td align="left"> В сочетании с битом 7 - флаг наличия MEMO-файла dBASE IV или
+      dBASE for Windows</td>
+  </tr>
+  <tr>
+    <td align="right">4</td>
+    <td align="left"> Зарезервировано для SQL-таблиц</td>
+  </tr>
+  <tr>
+    <td align="right">5-6</td>
+    <td align="left"> Флаги dBASE IV SQL-таблицы</td>
+  </tr>
+  <tr>
+    <td align="right">7</td>
+    <td align="left"> Наличие любого .DBT MEMO-файла (MEMO-файл таблицы dBASE III Plus, dBASE IV или dBASE под Windows)</td>
+  </tr>
+</tbody></table>
+<p><br>
+<a name="Table_4">Табл. 4. Известные сигнатуры.</a></p>
+<table id="table1" border="1" width="100%">
+	<tbody><tr>
+		<th colspan="3" align="left" bgcolor="#C0C0C0">Сигнатура</th>
+		<th align="left" bgcolor="#C0C0C0">СУБД</th>
+		<th align="left" bgcolor="#C0C0C0">Описание</th>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFF99">2</td>
+		<td bgcolor="#FFFF99">0x02</td>
+		<td bgcolor="#FFFF99"><nobr>0<font color="#0000FF">000</font>0<font color="#FF0000">010</font></nobr></td>
+		<td bgcolor="#FFFF99">FoxBASE</td>
+		<td bgcolor="#FFFF99">Таблица без memo-полей</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>0x03</td>
+		<td>0<font color="#0000FF">000</font>0<font color="#FF0000">011</font></td>
+		<td>dBASE III, dBASE IV, dBASE 5, dBASE 7, FoxPro, FoxBASE+</td>
+		<td>Таблица без memo-полей</td>
+	</tr>
+	<tr>
+		<td>4</td>
+		<td>0x04</td>
+		<td>0<font color="#0000FF">000</font>0<font color="#FF0000">100</font></td>
+		<td>dBASE 7</td>
+		<td>Таблица без memo-полей</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFF99">48</td>
+		<td bgcolor="#FFFF99">0x30</td>
+		<td bgcolor="#FFFF99">0<font color="#0000FF">011</font>0<font color="#FF0000">000</font></td>
+		<td bgcolor="#FFFF99">Visual FoxPro</td>
+		<td bgcolor="#FFFF99">Таблица (признак наличия memo-поля .FPT не 
+		предусмотрен )</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFF99">49</td>
+		<td bgcolor="#FFFF99">0x31</td>
+		<td bgcolor="#FFFF99">0<font color="#0000FF">011</font>0<font color="#FF0000">001</font></td>
+		<td bgcolor="#FFFF99">Visual FoxPro</td>
+		<td bgcolor="#FFFF99">Таблица с автоинкрементными полями</td>
+	</tr>
+	<tr>
+		<td>67</td>
+		<td>0x43</td>
+		<td>0<font color="#0000FF">100</font>0<font color="#FF0000">011</font></td>
+		<td>dBASE IV, dBASE 5</td>
+		<td>SQL-таблица dBASE IV без
+		memo-полей</td>
+	</tr>
+	<tr>
+		<td>99</td>
+		<td>0x63</td>
+		<td>0<font color="#0000FF">110</font>0<font color="#FF0000">011</font></td>
+		<td>dBASE IV, dBASE 5</td>
+		<td>Системная SQL-таблица dBASE IV без
+		memo-полей</td>
+	</tr>
+	<tr>
+		<td>131</td>
+		<td>0x83</td>
+		<td>1<font color="#0000FF">000</font>0<font color="#FF0000">011</font></td>
+		<td>dBASE III, FoxBASE+, FoxPro</td>
+		<td>Таблица с memo-полями .DBT</td>
+	</tr>
+	<tr>
+		<td>139</td>
+		<td>0x8B</td>
+		<td>1<font color="#0000FF">000</font>1<font color="#FF0000">011</font></td>
+		<td>dBASE IV, dBASE 5</td>
+		<td>Таблица с memo-полями .DBT
+		формата dBASE IV</td>
+	</tr>
+	<tr>
+		<td>140</td>
+		<td>0x8C</td>
+		<td>1<font color="#0000FF">000</font>1<font color="#FF0000">100</font></td>
+		<td>dBASE 7</td>
+		<td>Таблица с memo-полями .DBT
+		формата dBASE IV</td>
+	</tr>
+	<tr>
+		<td>203</td>
+		<td>0xCB</td>
+		<td>1<font color="#0000FF">100</font>1<font color="#FF0000">011</font></td>
+		<td>dBASE IV, dBASE 5</td>
+		<td>SQL-таблица dBASE IV с memo-полями
+		.DBT</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFF99">203</td>
+		<td bgcolor="#FFFF99">0xE5</td>
+		<td bgcolor="#FFFF99">1<font color="#0000FF">110</font>0<font color="#FF0000">101</font></td>
+		<td bgcolor="#FFFF99">SMT</td>
+		<td bgcolor="#FFFF99">Таблица с memo-полями .SMT</td>
+	</tr>
+	<tr>
+		<td>235</td>
+		<td>0xEB</td>
+		<td>1<font color="#0000FF">110</font>1<font color="#FF0000">011</font></td>
+		<td>dBASE IV, dBASE 5</td>
+		<td>Системная SQL-таблица dBASE IV с memo-полями
+		.DBT</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFF99">245</td>
+		<td bgcolor="#FFFF99">0xF5</td>
+		<td bgcolor="#FFFF99">1<font color="#0000FF">111</font>0<font color="#FF0000">101</font></td>
+		<td bgcolor="#FFFF99">FoxPro</td>
+		<td bgcolor="#FFFF99">Таблица с memo-полями .FPT</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFF99">251</td>
+		<td bgcolor="#FFFF99">0xFB</td>
+		<td bgcolor="#FFFF99">1<font color="#0000FF">111</font>1<font color="#FF0000">011</font></td>
+		<td bgcolor="#FFFF99">FoxBASE</td>
+		<td bgcolor="#FFFF99">Таблица с memo-полями .???</td>
+	</tr>
+</tbody></table>
+<small>* Желтым выделены сигнатуры, не соответствующие <a href="#Table_3">табл 
+3</a>.</small><p><br>
+<a name="Table_5">Табл. 5. Дескриптор поля (кроме dBASE 7).</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <th colspan="2" align="right" bgcolor="#C0C0C0">Адрес</th>
+    <th align="right" bgcolor="#C0C0C0">Длина</th>
+    <th align="left" bgcolor="#C0C0C0">Назначение</th>
+  </tr>
+  <tr>
+    <td align="right">0</td>
+    <td align="right">0x00</td>
+    <td align="right">11</td>
+    <td align="left"> Имя поля</td>
+  </tr>
+  <tr>
+    <td align="right">11</td>
+    <td align="right">0x0B</td>
+    <td align="right">1</td>
+    <td align="left"> Тип поля. См. <a href="#Table_7">табл 
+	7</a></td>
+  </tr>
+  <tr>
+    <td align="right">12</td>
+    <td align="right">0x0C</td>
+    <td align="right">4</td>
+    <td align="left"> Зарезервировано</td>
+  </tr>
+  <tr>
+    <td align="right">16</td>
+    <td align="right">0x10</td>
+    <td align="right">1</td>
+    <td align="left"> Полная длина поля</td>
+  </tr>
+  <tr>
+    <td align="right">17</td>
+    <td align="right">0x11</td>
+    <td align="right">1</td>
+    <td align="left"> Число десятичных разрядов; для
+      типа C - второй байт длины поля</td>
+  </tr>
+  <tr>
+    <td align="right">30</td>
+    <td align="right">0x1E</td>
+    <td align="right">13</td>
+    <td align="left"> Зарезервировано (всегда 0)</td>
+  </tr>
+  <tr>
+    <td align="right">31</td>
+    <td align="right">0x1F</td>
+    <td align="right">1</td>
+    <td align="left"> Флаг тэга файла MDX (только в dBASE IV)</td>
+  </tr>
+</tbody></table>
+<p><br>
+<a name="Table_6">Табл.6. Дескриптор поля в dBASE 7.</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <th colspan="2" align="right" bgcolor="#C0C0C0">Адрес</th>
+    <th align="right" bgcolor="#C0C0C0">Длина</th>
+    <th align="left" bgcolor="#C0C0C0">Назначение</th>
+  </tr>
+  <tr>
+    <td align="right">0</td>
+    <td align="right">0x00</td>
+    <td align="right">32</td>
+    <td align="left"> Имя поля</td>
+  </tr>
+  <tr>
+    <td align="right">32</td>
+    <td align="right">0x20</td>
+    <td align="right">1</td>
+    <td align="left"> Тип поля. См.
+      <a href="#Table_7">табл 7</a></td>
+  </tr>
+  <tr>
+    <td align="right">33</td>
+    <td align="right">0x21</td>
+    <td align="right">1</td>
+    <td align="left"> Полная длина поля</td>
+  </tr>
+  <tr>
+    <td align="right">34</td>
+    <td align="right">0x22</td>
+    <td align="right">1</td>
+    <td align="left"> Число десятичных разрядов; для
+      типа C - второй байт длины поля</td>
+  </tr>
+  <tr>
+    <td align="right">35</td>
+    <td align="right">0x23</td>
+    <td align="right">2</td>
+    <td align="left"> Зарезервировано</td>
+  </tr>
+  <tr>
+    <td align="right">37</td>
+    <td align="right">0x25</td>
+    <td align="right">1</td>
+    <td align="left"> Флаг тэга файла MDX: 1 для
+      индексированного поля, 0 - для
+      неиндексированного</td>
+  </tr>
+  <tr>
+    <td align="right">38</td>
+    <td align="right">0x26</td>
+    <td align="right">2</td>
+    <td align="left"> Зарезервировано</td>
+  </tr>
+  <tr>
+    <td align="right">40</td>
+    <td align="right">0x28</td>
+    <td align="right">4</td>
+    <td align="left"> Для автоинкрементного поля -
+      следующее значение, для прочих полей - 0</td>
+  </tr>
+  <tr>
+    <td align="right">44</td>
+    <td align="right">0x2C</td>
+    <td align="right">4</td>
+    <td align="left"> Зарезервировано</td>
+  </tr>
+</tbody></table>
+
+<p><br>
+<a name="Table_7">Табл. 7. Типы полей.</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <th align="left" bgcolor="#C0C0C0">Символ типа</th>
+    <th align="left" bgcolor="#C0C0C0">Имя типа</th>
+    <th align="left" bgcolor="#C0C0C0">Когда появился</th>
+    <th align="left" bgcolor="#C0C0C0">Формат хранения</th>
+  </tr>
+  <tr>
+    <td rowspan="2" align="left">B</td>
+    <td align="left">Binary</td>
+    <td align="left">dBASE 5</td>
+    <td align="left"> Номер блока в MEMO-файле, хранимый
+      в виде строки до 10 цифр, выровненной
+      вправо пробелами. Длина поля всегда 10.
+      Пустое значение - 10 пробелов, означает
+      отсутствие блока в MEMO-файле</td>
+  </tr>
+  <tr>
+    <td align="left">Double</td>
+    <td align="left">MS Visual FoxPro</td>
+    <td align="left"> Плавающее число, хранимое в 8-байтовом
+      бинарном формате IEEE 754. Пустое значение
+      совпадает с нулем</td>
+  </tr>
+  <tr>
+    <td align="left">C</td>
+    <td align="left">Character</td>
+    <td align="left">dBASE III</td>
+    <td align="left"> Строка, выровненная влево
+      пробелами</td>
+  </tr>
+  <tr>
+    <td align="left">D</td>
+    <td align="left">Date</td>
+    <td align="left">dBASE III</td>
+    <td align="left"> Дата, хранимая в виде строки из 8
+      цифр в формате ГГГГММДД. Пустое значение
+      - 10 пробелов</td>
+  </tr>
+  <tr>
+    <td align="left">F</td>
+    <td align="left">Float</td>
+    <td align="left">dBASE IV</td>
+    <td align="left"> Число, хранимое в виде строки
+      заданной длины с заданным количеством
+      цифр после точки, выровненной вправо
+      пробелами. Пустое значение задается
+      строкой пробелов. Чем отличается от Numeric,
+      непонятно</td>
+  </tr>
+  <tr>
+    <td align="left">G</td>
+    <td align="left">General (OLE)</td>
+    <td align="left">dBASE 5</td>
+    <td align="left"> Номер блока в MEMO-файле, хранимый
+      в виде строки до 10 цифр, выровненной
+      вправо пробелами. Длина поля всегда 10.
+      Пустое значение - 10 пробелов, означает
+      отсутствие блока в MEMO-файле</td>
+  </tr>
+  <tr>
+    <td align="left">I</td>
+    <td align="left">Integer (Long)</td>
+    <td align="left">dBASE 7</td>
+    <td align="left"> Знаковое целое число, хранимое
+      в бинарном виде. Длина поля - 4 байта, порядок байтов - big-endian, 
+	старший бит инвертирован относительно дополнительного кода. Преимущество 
+	такого формата хранения в том, что числа можно сравнивать побайтово, что 
+	очень полезно для индексирования. Пустое значение совпадает с нулем</td>
+  </tr>
+  <tr>
+    <td align="left">L</td>
+    <td align="left">Logical</td>
+    <td align="left">dBASE III</td>
+    <td align="left"> Булево значение, длина всегда 1.
+      'T', 't', 'Y', 'y' - истина, 'F', 'f', 'N', 'n' - ложь, пробел или '?' - 
+	пустое значение</td>
+  </tr>
+  <tr>
+    <td align="left">M</td>
+    <td align="left">Memo</td>
+    <td align="left">dBASE III</td>
+    <td align="left"> Номер блока в MEMO-файле, хранимый
+      в виде строки до 10 цифр, выровненной
+      вправо пробелами. Длина поля всегда 10.
+      Пустое значение - 10 пробелов, означает
+      отсутствие блока в MEMO-файле</td>
+  </tr>
+  <tr>
+    <td align="left">N</td>
+    <td align="left">Numeric</td>
+    <td align="left">dBASE III</td>
+    <td align="left"> Число, хранимое в виде строки
+      заданной длины с заданным количеством
+      цифр после точки, выровненной вправо
+      пробелами. Пустое значение задается
+      строкой пробелов</td>
+  </tr>
+  <tr>
+    <td align="left">O</td>
+    <td align="left">Double</td>
+    <td align="left">dBASE 7</td>
+    <td align="left"> Плавающее число, хранимое в 8-байтовом бинарном формате, 
+	получаемом из IEEE 754 простым преобразованием. Порядок байтов изменяется на 
+	обратный, для отрицательных чисел инвертируются все биты, для 
+	неотрицательных - только знаковый бит. Преимущество такого формата хранения 
+	в том, что числа можно сравнивать побайтово, что очень полезно для 
+	индексирования. Пустое значение совпадает с нулем</td>
+  </tr>
+  <tr>
+    <td align="left">P</td>
+    <td align="left">Picture</td>
+    <td align="left">FoxPro</td>
+    <td align="left"> Номер блока в MEMO-файле, хранимый
+      в виде строки до 10 цифр, выровненной
+      вправо пробелами. Длина поля всегда 10.
+      Пустое значение - 10 пробелов, означает
+      отсутствие блока в MEMO-файле</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#FFFF99">Q</td>
+    <td align="left" bgcolor="#FFFF99">Varbinary</td>
+    <td align="left" bgcolor="#FFFF99">MS Visual FoxPro</td>
+    <td align="left" bgcolor="#FFFF99"> Бинарные данные переменной длины. Начальная часть хранится в DBF-файле, хвост переменного размера - в memo-файле</td>
+  </tr>
+  <tr>
+    <td align="left">T</td>
+    <td align="left">DateTime</td>
+    <td align="left">FoxPro</td>
+    <td align="left"> Дата и время. Существует в двух вариантах: текстовом и 
+	бинарном. Текстовый вариант - строка из 14 цифр в формате ГГГГММДДЧЧММСС; 
+	пустое значение - 14 пробелов. Бинарный вариант - два двойных слова little-endian, 
+	т.е. всего 8 байт; первое двойное слово содержит число дней от начала 
+	Юлианского календаря (01.01.4713 до нашей эры), второе двойное слово - число 
+	миллисекунд от начала суток; пустое значение - 8 нулевых байтов</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#FFFF99">V</td>
+    <td align="left" bgcolor="#FFFF99">Varchar</td>
+    <td align="left" bgcolor="#FFFF99">MS Visual FoxPro</td>
+    <td align="left" bgcolor="#FFFF99"> Строка 
+	переменной длины. Начальная часть строки хранится в 
+	DBF-файле, хвост переменного размера - в memo-файле. Индексация - только по 
+	начальной части</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#FFFF99">W</td>
+    <td align="left" bgcolor="#FFFF99">Blob</td>
+    <td align="left" bgcolor="#FFFF99">MS Visual FoxPro</td>
+    <td align="left" bgcolor="#FFFF99"> Нет информации о формате</td>
+  </tr>
+	<tr>
+    <td align="left">Y</td>
+    <td align="left">Currency</td>
+    <td align="left">MS Visual FoxPro</td>
+    <td align="left"> Денежный тип. Хранится в виде знакового 8-байтового целого 
+	числа little-endian. Точность хранения составляет 1E-4 денежной единицы. 
+	Пустое значение совпадает с нулем</td>
+  </tr>
+  <tr>
+    <td align="left">@</td>
+    <td align="left">Timestamp (DateTime)</td>
+    <td align="left">dBASE 7</td>
+    <td align="left"> Дата и время. Совпадает с типом 'T' в бинарном варианте</td>
+  </tr>
+  <tr>
+    <td align="left">+</td>
+    <td align="left">Autoincrement</td>
+    <td align="left">dBASE 7</td>
+    <td align="left"> Знаковое целое число, хранимое
+      в бинарном виде. Длина поля - 4 байта, порядок байтов - big-endian, 
+	старший бит инвертирован относительно дополнительного кода. Преимущество 
+	такого формата хранения в том, что числа можно сравнивать побайтово, что 
+	очень полезно для индексирования. Пустое значение совпадает с нулем</td>
+  </tr>
+</tbody></table>
+
+<small>* Желтым выделены DBF-типы,&nbsp;
+неподдерживаемые библиотекой <a href="http://www.autopark.ru/ASBProgrammerGuide/dbf.htm">DBF</a>.</small><p><br>
+<a name="Table_8">Табл. 8. Запись.</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <th align="right" bgcolor="#C0C0C0"> Длина</th>
+    <th align="left" bgcolor="#C0C0C0"> Назначение</th>
+  </tr>
+  <tr>
+    <td align="right">1</td>
+    <td align="left"> Заголовочный байт. Может
+      принимать одно из следующих значений:
+      <ul>
+        <li>0x20 (32) - обычная запись;</li>
+        <li>0x2A (42) - удаленная запись</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">n</td>
+    <td align="left"> Данные записи (количество данных n).
+      Данные полей в порядке описания полей
+      без разделителей.</td>
+  </tr>
+</tbody></table>
+<p><br><a name="Table_9">Табл. 9. Идентификаторы кодовой страницы
+файла.</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <th colspan="2" align="left" bgcolor="#C0C0C0">Идентификатор </th>
+    <th align="left" bgcolor="#C0C0C0">Кодовая страница</th>
+    <th align="left" bgcolor="#C0C0C0">Описание</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>0x01</td>
+    <td>437</td>
+    <td>US MS-DOS</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>0x02</td>
+    <td>850</td>
+    <td>International MS-DOS</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>0x03</td>
+    <td>1252</td>
+    <td>Windows ANSI Latin I</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>0x04</td>
+    <td>10000</td>
+    <td>Standard Macintosh</td>
+  </tr>
+	<tr>
+    <td>8</td>
+    <td>0x08</td>
+    <td>865</td>
+    <td>Danish OEM</td>
+  </tr>
+	<tr>
+    <td>9</td>
+    <td>0x09</td>
+    <td>437</td>
+    <td>Dutch OEM</td>
+  </tr>
+	<tr>
+    <td>10</td>
+    <td>0x0A</td>
+    <td>850</td>
+    <td>Dutch OEM*</td>
+  </tr>
+	<tr>
+    <td>11</td>
+    <td>0x0B</td>
+    <td>437</td>
+    <td>Finnish OEM</td>
+  </tr>
+	<tr>
+    <td>13</td>
+    <td>0x0D</td>
+    <td>437</td>
+    <td>French OEM</td>
+  </tr>
+	<tr>
+    <td>14</td>
+    <td>0x0E</td>
+    <td>850</td>
+    <td>French OEM*</td>
+  </tr>
+	<tr>
+    <td>15</td>
+    <td>0x0F</td>
+    <td>437</td>
+    <td>German OEM</td>
+  </tr>
+	<tr>
+    <td>16</td>
+    <td>0x10</td>
+    <td>850</td>
+    <td>German OEM*</td>
+  </tr>
+	<tr>
+    <td>17</td>
+    <td>0x11</td>
+    <td>437</td>
+    <td>Italian OEM</td>
+  </tr>
+	<tr>
+    <td>18</td>
+    <td>0x12</td>
+    <td>850</td>
+    <td>Italian OEM*</td>
+  </tr>
+	<tr>
+    <td>19</td>
+    <td>0x13</td>
+    <td>932</td>
+    <td>Japanese Shift-JIS</td>
+  </tr>
+	<tr>
+    <td>20</td>
+    <td>0x14</td>
+    <td>850</td>
+    <td>Spanish OEM*</td>
+  </tr>
+	<tr>
+    <td>21</td>
+    <td>0x15</td>
+    <td>437</td>
+    <td>Swedish OEM</td>
+  </tr>
+	<tr>
+    <td>22</td>
+    <td>0x16</td>
+    <td>850</td>
+    <td>Swedish OEM*</td>
+  </tr>
+	<tr>
+    <td>23</td>
+    <td>0x17</td>
+    <td>865</td>
+    <td>Norwegian OEM</td>
+  </tr>
+	<tr>
+    <td>24</td>
+    <td>0x18</td>
+    <td>437</td>
+    <td>Spanish OEM</td>
+  </tr>
+	<tr>
+    <td>25</td>
+    <td>0x19</td>
+    <td>437</td>
+    <td>English OEM (Great Britain)</td>
+  </tr>
+	<tr>
+    <td>26</td>
+    <td>0x1A</td>
+    <td>850</td>
+    <td>English OEM (Great Britain)*</td>
+  </tr>
+	<tr>
+    <td>27</td>
+    <td>0x1B</td>
+    <td>437</td>
+    <td>English OEM (US)</td>
+  </tr>
+	<tr>
+    <td>28</td>
+    <td>0x1C</td>
+    <td>863</td>
+    <td>French OEM (Canada)</td>
+  </tr>
+	<tr>
+    <td>29</td>
+    <td>0x1D</td>
+    <td>850</td>
+    <td>French OEM*</td>
+  </tr>
+	<tr>
+    <td>31</td>
+    <td>0x1F</td>
+    <td>852</td>
+    <td>Czech OEM</td>
+  </tr>
+	<tr>
+    <td>34</td>
+    <td>0x22</td>
+    <td>852</td>
+    <td>Hungarian OEM</td>
+  </tr>
+	<tr>
+    <td>35</td>
+    <td>0x23</td>
+    <td>852</td>
+    <td>Polish OEM</td>
+  </tr>
+	<tr>
+    <td>36</td>
+    <td>0x24</td>
+    <td>860</td>
+    <td>Portuguese OEM</td>
+  </tr>
+	<tr>
+    <td>37</td>
+    <td>0x25</td>
+    <td>850</td>
+    <td>Portuguese OEM*</td>
+  </tr>
+  <tr>
+    <td>38</td>
+    <td>0x26</td>
+    <td>866</td>
+    <td>Russian OEM</td>
+  </tr>
+  <tr>
+    <td>55</td>
+    <td>0x37</td>
+    <td>850</td>
+    <td>English OEM (US)*</td>
+  </tr>
+	<tr>
+    <td>64</td>
+    <td>0x40</td>
+    <td>852</td>
+    <td>Romanian OEM</td>
+  </tr>
+	<tr>
+    <td>77</td>
+    <td>0x4D</td>
+    <td>936</td>
+    <td>Chinese GBK (PRC)</td>
+  </tr>
+	<tr>
+    <td>78</td>
+    <td>0x4E</td>
+    <td>949</td>
+    <td>Korean (ANSI/OEM)</td>
+  </tr>
+	<tr>
+    <td>79</td>
+    <td>0x4F</td>
+    <td>950</td>
+    <td>Chinese Big5 (Taiwan)</td>
+  </tr>
+	<tr>
+    <td>80</td>
+    <td>0x50</td>
+    <td>874</td>
+    <td>Thai (ANSI/OEM)</td>
+  </tr>
+	<tr>
+    <td>87</td>
+    <td>0x57</td>
+    <td>Current ANSI CP</td>
+    <td>ANSI</td>
+  </tr>
+  <tr>
+    <td>88</td>
+    <td>0x58</td>
+    <td>1252</td>
+    <td>Western European ANSI</td>
+  </tr>
+	<tr>
+    <td>89</td>
+    <td>0x59</td>
+    <td>1252</td>
+    <td>Spanish ANSI</td>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>0x64</td>
+    <td>852</td>
+    <td>Eastern European MS-DOS</td>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>0x65</td>
+    <td>866</td>
+    <td>Russian MS-DOS</td>
+  </tr>
+  <tr>
+    <td>102</td>
+    <td>0x66</td>
+    <td>865</td>
+    <td>Nordic MS-DOS</td>
+  </tr>
+  <tr>
+    <td>103</td>
+    <td>0x67</td>
+    <td>861</td>
+    <td>Icelandic MS-DOS</td>
+  </tr>
+  <tr>
+    <td>104</td>
+    <td>0x68</td>
+    <td>895</td>
+    <td>Kamenicky (Czech) MS-DOS</td>
+  </tr>
+  <tr>
+    <td>105</td>
+    <td>0x69</td>
+    <td>620</td>
+    <td>Mazovia (Polish) MS-DOS</td>
+  </tr>
+  <tr>
+    <td>106</td>
+    <td>0x6A</td>
+    <td>737</td>
+    <td>Greek MS-DOS (437G)</td>
+  </tr>
+  <tr>
+    <td>107</td>
+    <td>0x6B</td>
+    <td>857</td>
+    <td>Turkish MS-DOS</td>
+  </tr>
+	<tr>
+    <td>108</td>
+    <td>0x6C</td>
+    <td>863</td>
+    <td>French-Canadian MS-DOS</td>
+  </tr>
+	<tr>
+    <td>120</td>
+    <td>0x78</td>
+    <td>950</td>
+    <td>Taiwan Big 5</td>
+  </tr>
+	<tr>
+    <td>121</td>
+    <td>0x79</td>
+    <td>949</td>
+    <td>Hangul (Wansung)</td>
+  </tr>
+	<tr>
+    <td>122</td>
+    <td>0x7A</td>
+    <td>936</td>
+    <td>PRC GBK</td>
+  </tr>
+	<tr>
+    <td>123</td>
+    <td>0x7B</td>
+    <td>932</td>
+    <td>Japanese Shift-JIS</td>
+  </tr>
+	<tr>
+    <td>124</td>
+    <td>0x7C</td>
+    <td>874</td>
+    <td>Thai Windows/MS–DOS</td>
+  </tr>
+	<tr>
+    <td>134</td>
+    <td>0x86</td>
+    <td>737</td>
+    <td>Greek OEM</td>
+  </tr>
+	<tr>
+    <td>135</td>
+    <td>0x87</td>
+    <td>852</td>
+    <td>Slovenian OEM</td>
+  </tr>
+	<tr>
+    <td>136</td>
+    <td>0x88</td>
+    <td>857</td>
+    <td>Turkish OEM</td>
+  </tr>
+  <tr>
+    <td>150</td>
+    <td>0x96</td>
+    <td>10007</td>
+    <td>Russian Macintosh</td>
+  </tr>
+  <tr>
+    <td>151</td>
+    <td>0x97</td>
+    <td>10029</td>
+    <td>Eastern European Macintosh</td>
+  </tr>
+  <tr>
+    <td>152</td>
+    <td>0x98</td>
+    <td>10006</td>
+    <td>Greek Macintosh</td>
+  </tr>
+  <tr>
+    <td>200</td>
+    <td>0xC8</td>
+    <td>1250</td>
+    <td>Eastern European Windows</td>
+  </tr>
+  <tr>
+    <td>201</td>
+    <td>0xC9</td>
+    <td>1251</td>
+    <td>Russian Windows</td>
+  </tr>
+  <tr>
+    <td>202</td>
+    <td>0xCA</td>
+    <td>1254</td>
+    <td>Turkish Windows</td>
+  </tr>
+  <tr>
+    <td>203</td>
+    <td>0xCB</td>
+    <td>1253</td>
+    <td>Greek Windows</td>
+  </tr>
+  <tr>
+    <td>204</td>
+    <td>0xCC</td>
+    <td>1257</td>
+    <td>Baltic Windows</td>
+  </tr>
+</tbody></table>
+<small>* - вторая (международная) кодовая страница</small><p><br>
+<a name="Table_10">Табл.10. Идентификаторы языковых
+драйверов в dBASE 7.</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <th align="left" bgcolor="#C0C0C0">Внутреннее имя&nbsp;</th>
+    <th align="left" bgcolor="#C0C0C0">Полное имя&nbsp;</th>
+    <th align="left" bgcolor="#C0C0C0">Набор символов</th>
+  </tr>
+  <tr>
+    <td align="left">DBWINUS0</td>
+    <td align="left">'ascii' ANSI</td>
+    <td align="left"> Windows code page 1252</td>
+  </tr>
+  <tr>
+    <td align="left">DBWINES0</td>
+    <td align="left">'Spanish' ANSI</td>
+    <td align="left"> Windows code page 1252</td>
+  </tr>
+  <tr>
+    <td align="left">DBWINWE0</td>
+    <td align="left">'WEurope' ANSI</td>
+    <td align="left"> Windows code page 1252</td>
+  </tr>
+  <tr>
+    <td align="left">DB936CN0</td>
+    <td align="left">dBASE CHS cp936</td>
+    <td align="left"> DOS code page 936</td>
+  </tr>
+  <tr>
+    <td align="left">DB852CZ0</td>
+    <td align="left">dBASE CSY cp852</td>
+    <td align="left"> DOS code page 852</td>
+  </tr>
+  <tr>
+    <td align="left">DB867CZ0</td>
+    <td align="left">dBASE CSY cp867</td>
+    <td align="left"> DOS code page 867</td>
+  </tr>
+  <tr>
+    <td align="left">DB865DA0</td>
+    <td align="left">dBASE DAN cp865</td>
+    <td align="left"> DOS code page 865</td>
+  </tr>
+  <tr>
+    <td align="left">DB437DE0</td>
+    <td align="left">dBASE DEU cp437</td>
+    <td align="left"> DOS code page 437</td>
+  </tr>
+  <tr>
+    <td align="left">DB850DE0</td>
+    <td align="left">dBASE DEU cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">db437gr0</td>
+    <td align="left">dBASE ELL GR437</td>
+    <td align="left"> DOS code page 439</td>
+  </tr>
+  <tr>
+    <td align="left">DB437UK0</td>
+    <td align="left">dBASE ENG cp437</td>
+    <td align="left"> DOS code page 437</td>
+  </tr>
+  <tr>
+    <td align="left">DB850UK0</td>
+    <td align="left">dBASE ENG cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">DB437US0</td>
+    <td align="left">dBASE ENU cp437</td>
+    <td align="left"> DOS code page 437</td>
+  </tr>
+  <tr>
+    <td align="left">DB850US0</td>
+    <td align="left">dBASE ENU cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">DB437ES1</td>
+    <td align="left">dBASE ESP cp437</td>
+    <td align="left"> DOS code page 437</td>
+  </tr>
+  <tr>
+    <td align="left">DB850ES0</td>
+    <td align="left">dBASE ESP cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">DB437FI0</td>
+    <td align="left">dBASE FIN cp437&nbsp;</td>
+    <td align="left"> DOS code page 437</td>
+  </tr>
+  <tr>
+    <td align="left">DB437FR0</td>
+    <td align="left">dBASE FRA cp437</td>
+    <td align="left"> DOS code page 437</td>
+  </tr>
+  <tr>
+    <td align="left">DB850FR0</td>
+    <td align="left">dBASE FRA cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">DB850CF0</td>
+    <td align="left">dBASE FRC cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">DB863CF1</td>
+    <td align="left">dBASE FRC cp863</td>
+    <td align="left"> DOS code page 863</td>
+  </tr>
+  <tr>
+    <td align="left">db852hdc</td>
+    <td align="left">dBASE HUN cp852</td>
+    <td align="left"> DOS code page 852</td>
+  </tr>
+  <tr>
+    <td align="left">DB437IT0</td>
+    <td align="left">dBASE ITA cp437</td>
+    <td align="left"> DOS code page 437</td>
+  </tr>
+  <tr>
+    <td align="left">DB850IT1</td>
+    <td align="left">dBASE ITA cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">DB932JP1</td>
+    <td align="left">dBASE JPN Dic932</td>
+    <td align="left"> DOS code page 932</td>
+  </tr>
+  <tr>
+    <td align="left">DB932JP0</td>
+    <td align="left">dBASE JPN cp932</td>
+    <td align="left"> DOS code page 932</td>
+  </tr>
+  <tr>
+    <td align="left">DB949KO0</td>
+    <td align="left">dBASE KOR cp949</td>
+    <td align="left"> DOS code page 949</td>
+  </tr>
+  <tr>
+    <td align="left">DB437NL0</td>
+    <td align="left">dBASE NLD cp437</td>
+    <td align="left"> DOS code page 437</td>
+  </tr>
+  <tr>
+    <td align="left">DB850NL0</td>
+    <td align="left">dBASE NLD cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">DB865NO0</td>
+    <td align="left">dBASE NOR cp865</td>
+    <td align="left"> DOS code page 865</td>
+  </tr>
+  <tr>
+    <td align="left">db852po0</td>
+    <td align="left">dBASE PLK cp852</td>
+    <td align="left"> DOS code page 852</td>
+  </tr>
+  <tr>
+    <td align="left">DB850PT0</td>
+    <td align="left">dBASE PTB cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">DB860PT0</td>
+    <td align="left">dBASE PTG cp860</td>
+    <td align="left"> DOS code page 860</td>
+  </tr>
+  <tr>
+    <td align="left">db866ru0</td>
+    <td align="left">dBASE RUS cp866</td>
+    <td align="left"> DOS code page 866</td>
+  </tr>
+  <tr>
+    <td align="left">db852sl0</td>
+    <td align="left">dBASE SLO cp852</td>
+    <td align="left"> DOS code page 852</td>
+  </tr>
+  <tr>
+    <td align="left">DB437SV0</td>
+    <td align="left">dBASE SVE cp437</td>
+    <td align="left"> DOS code page 437</td>
+  </tr>
+  <tr>
+    <td align="left">DB850SV1</td>
+    <td align="left">dBASE SVE cp850</td>
+    <td align="left"> DOS code page 850</td>
+  </tr>
+  <tr>
+    <td align="left">DB950TW0</td>
+    <td align="left">dBASE CHT cp950</td>
+    <td align="left"> DOS code page 950</td>
+  </tr>
+  <tr>
+    <td align="left">db874th0</td>
+    <td align="left">dBASE THA cp874</td>
+    <td align="left"> DOS code page 874</td>
+  </tr>
+  <tr>
+    <td align="left">DB857TR0</td>
+    <td align="left">dBASE TRK cp857</td>
+    <td align="left"> DOS code page 857</td>
+  </tr>
+  <tr>
+    <td align="left">dbHebrew</td>
+    <td align="left">Hebrew dBASE</td>
+    <td align="left"> DOS code page 862</td>
+  </tr>
+  <tr>
+    <td align="left">Bgdb868</td>
+    <td align="left">DBASE BUL 868</td>
+    <td align="left"> DOS code page 868</td>
+  </tr>
+</tbody></table>
+
+
+
+</body></html>
